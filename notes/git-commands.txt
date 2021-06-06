@@ -1,0 +1,10 @@
+git clone html
+git add file
+git commit -m "message"
+git push
+git pull
+git status // (changes like modified file)
+
+git add -A // all in dir, must be used before commit
+
+git add // with nothing else, terminal expecting text esc+ ":wq"

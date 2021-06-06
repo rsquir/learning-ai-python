@@ -1,0 +1,1 @@
+#goal, white text over black
