@@ -20,9 +20,15 @@ def sigmoid(x):
 	return 1/(1 + numpy.exp(-x))
 
 def train():
-	w1 = numpy.random.randn() * 2 - 0.1
-	w2 = numpy.random.randn() * 2 - 0.1
-	b = numpy.random.randn() * 2 - 0.1
+#	w1 = numpy.random.randn() * 2 - 0.1
+#	w2 = numpy.random.randn() * 2 - 0.1
+#	b = numpy.random.randn() * 2 - 0.1
+
+	w1 = numpy.random.randn()
+	w2 = numpy.random.randn()
+	b = numpy.random.randn()
+
+
 	learning_rate = 0.2
 
 	for i in range(50000):
@@ -65,12 +71,12 @@ def train():
 
 
 def NN(m1, m2, w1, w2, b):
-	z = m1 * w1 + m2 * w2 +b
+	z = m1 * w1 + m2 * w2 + b
 	return sigmoid(z)
 
 weight_b = train()
 #print(NN(dataU[0], dataU[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
-print(NN(dataB2[0], dataB2[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
+print(NN(dataR3[0], dataR3[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
 
 # more notes
 #
