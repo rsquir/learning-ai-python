@@ -69,7 +69,8 @@ def NN(m1, m2, w1, w2, b):
 	return sigmoid(z)
 
 weight_b = train()
-print(NN(dataU[0], dataU[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
+#print(NN(dataU[0], dataU[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
+print(NN(dataB2[0], dataB2[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
 
 # more notes
 #
@@ -77,4 +78,7 @@ print(NN(dataU[0], dataU[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
 # diff = pred - target
 # pred = signmoid(z)
 # z = w1 * length + w2 * height + b
+
+# classification binary (0 or 1, "red" or "green")
+# regression catagory (specific number, 256)
 
