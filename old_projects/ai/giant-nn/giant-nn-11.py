@@ -38,7 +38,7 @@ def train():
 		target = point[2]
 
 		# feed forward
-		z = w1 + point[0] + w2 * point[1] + b
+		z = w1 * point[0] + w2 * point[1] + b
 		pred = sigmoid(z)
 
 		# now compare the model prediction with the target
@@ -76,7 +76,7 @@ def NN(m1, m2, w1, w2, b):
 
 weight_b = train()
 #print(NN(dataU[0], dataU[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
-print(NN(dataR3[0], dataR3[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
+print(NN(dataB4[0], dataB4[1], weight_b[0], weight_b[1], weight_b[2])) # solved!!!
 
 # more notes
 #

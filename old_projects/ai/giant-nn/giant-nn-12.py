@@ -90,14 +90,17 @@ for i in range(10000):
 z = mystery_flower[0] * w1 + mystery_flower[1] * w2 + b
 pred = sigmoid(z)
 
-if (pred < 0,5):
-	mystery_flower.append(0)
+if (pred < 0.5):
+	mystery_flower.append("b")
+	print("blue")
 else:
-	mystery_flower.append(1)
+	mystery_flower.append("r")
+	print("red")
 
 #print(pred)
 
-plt.plot(mystery_flower[0], mystery_flower[1], c='b') 
+#plt.scatter(mystery_flower[0], mystery_flower[1], c=mystery_flower[2]) 
+plt.scatter(mystery_flower[0], mystery_flower[1], c='g') 
 plt.savefig("graph-giant-nn-12.png")
 
 
