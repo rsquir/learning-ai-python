@@ -40,7 +40,7 @@ plt.figure()
 plt.scatter(X_train, y_train, color='green')
 plt.plot(X_train, y_train_pred, color='black', linewidth=4)
 plt.title('Training data')
-plt.savefig("graph-plmc-p8-1.png")
+plt.savefig("graph-plmc-1-p8-1.png")
 
 # clear graph
 plt.clf()
@@ -50,7 +50,7 @@ y_test_pred = linear_regressor.predict(X_test)
 plt.scatter(X_test, y_test, color='green')
 plt.plot(X_test, y_test_pred, color='black', linewidth=4)
 plt.title('Test data')
-plt.savefig("graph-plmc-p8-2.png")
+plt.savefig("graph-plmc-1-p8-2.png")
 
 import sklearn.metrics as sm
 
@@ -79,6 +79,6 @@ plt.clf()
 plt.scatter(X_test, y_test, color='green')
 plt.plot(X_test, y_test_pred_new, color='black', linewidth=4)
 plt.title('Test data from file')
-plt.savefig("graph-plmc-8-3.png")
+plt.savefig("graph-plmc-1-p8-3.png")
 
 
