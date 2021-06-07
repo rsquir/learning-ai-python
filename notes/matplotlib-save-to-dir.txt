@@ -1,2 +1,2 @@
 import matplotlib.pyplot as plt
-plt.savefig("graph-giant-nn-12.png")
+plt.savefig("graph-plmc-p8-2.png")
