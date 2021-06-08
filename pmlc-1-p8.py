@@ -82,3 +82,49 @@ plt.title('Test data from file')
 plt.savefig("graph-plmc-1-p8-3.png")
 
 
+ridge_regressor = linear_model.Ridge(alpha=0.01, fit_intercept=True, max_iter=10000)
+
+ridge_regressor.fit(X_train, y_train)
+y_test_pred_ridge = ridge_regressor.predict(X_test)
+print("\nRidge")
+print("Mean absolute error =", round(sm.mean_absolute_error(y_test, y_test_pred_ridge), 2))
+print("Mean squared error =", round(sm.mean_squared_error(y_test, y_test_pred_ridge), 2))
+print("Median absolute error =", round(sm.median_absolute_error(y_test, y_test_pred_ridge), 2))
+print("Explain variance score =", round(sm.explained_variance_score(y_test, y_test_pred_ridge), 2))
+print("R2 score =", round(sm.r2_score(y_test, y_test_pred_ridge), 2))
+
+
+from sklearn.preprocessing import PolynomialFeatures
+
+polynomial = PolynomialFeatures(degree=10)
+
+X_train_transformed = polynomial.fit_transform(X_train)
+
+datapoint = [0.39, 2.78, 7.11]
+datapoint = np.array(datapoint[:]).reshape((len(datapoint),1))
+poly_datapoint = polynomial.fit_transform(datapoint)
+
+poly_linear_model = linear_model.LinearRegression()
+poly_linear_model.fit(X_train_transformed, y_train)
+print("\nPolynomial vs. Linear")
+print("Linear regression:", linear_regressor.predict(datapoint)[0])
+print("Polynomial regression:", poly_linear_model.predict(poly_datapoint)[0])
+
+#
+#from sklearn.preprocessing import PolynomialFeatures
+#
+#polynomial = PolynomialFeatures(degree=3)
+#
+#X_train_transformed = polynomial.fit_transform(X_train)
+#
+#datapoint = [0.39, 2.78, 7.11]
+#datapoint = np.array(datapoint).reshape(len(datapoint),1)
+#poly_datapoint = polynomial.fit_transform(datapoint)
+#
+#poly_linear_model = linear_model.LinearRegression()
+#poly_linear_model.fit(X_train_transformed, y_train)
+#print("Linear regression:", linear_regressor.predict(datapoint[0]))
+#print("Polynomial regression:", poly_linear_model.predict(poly_datapoint[0]))
+
+
+
