@@ -40,7 +40,7 @@ plt.figure()
 plt.scatter(X_train, y_train, color='green')
 plt.plot(X_train, y_train_pred, color='black', linewidth=4)
 plt.title('Training data')
-plt.savefig("graph-plmc-1-p8-1.png")
+plt.savefig("graph-pmlc-1-p8-1.png")
 
 # clear graph
 plt.clf()
@@ -50,7 +50,7 @@ y_test_pred = linear_regressor.predict(X_test)
 plt.scatter(X_test, y_test, color='green')
 plt.plot(X_test, y_test_pred, color='black', linewidth=4)
 plt.title('Test data')
-plt.savefig("graph-plmc-1-p8-2.png")
+plt.savefig("graph-pmlc-1-p8-2.png")
 
 import sklearn.metrics as sm
 
@@ -63,7 +63,7 @@ print("R2 score =", round(sm.r2_score(y_test, y_test_pred), 2))
 
 import _pickle as pickle
 
-output_model_file = 'saved_model-plmc-1-p8.pk1'
+output_model_file = 'saved_model-pmlc-1-p8.pk1'
 
 with open(output_model_file, 'wb') as f:
 	pickle.dump(linear_regressor, f)
@@ -79,7 +79,7 @@ plt.clf()
 plt.scatter(X_test, y_test, color='green')
 plt.plot(X_test, y_test_pred_new, color='black', linewidth=4)
 plt.title('Test data from file')
-plt.savefig("graph-plmc-1-p8-3.png")
+plt.savefig("graph-pmlc-1-p8-3.png")
 
 
 ridge_regressor = linear_model.Ridge(alpha=0.01, fit_intercept=True, max_iter=10000)
@@ -110,21 +110,6 @@ print("\nPolynomial vs. Linear")
 print("Linear regression:", linear_regressor.predict(datapoint)[0])
 print("Polynomial regression:", poly_linear_model.predict(poly_datapoint)[0])
 
-#
-#from sklearn.preprocessing import PolynomialFeatures
-#
-#polynomial = PolynomialFeatures(degree=3)
-#
-#X_train_transformed = polynomial.fit_transform(X_train)
-#
-#datapoint = [0.39, 2.78, 7.11]
-#datapoint = np.array(datapoint).reshape(len(datapoint),1)
-#poly_datapoint = polynomial.fit_transform(datapoint)
-#
-#poly_linear_model = linear_model.LinearRegression()
-#poly_linear_model.fit(X_train_transformed, y_train)
-#print("Linear regression:", linear_regressor.predict(datapoint[0]))
-#print("Polynomial regression:", poly_linear_model.predict(poly_datapoint[0]))
 
 
 
