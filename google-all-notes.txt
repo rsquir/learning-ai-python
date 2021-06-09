@@ -1,0 +1,168 @@
+https://developers.google.com/machine-learning/crash-course/representation/feature-engineering
+
+
+11111
+** Framing: Key ML Technology
+Supervised machine learning is ML systems learning how to combine input to produce predictions on never-before-seen data
+Labels are y in a linear regression
+Features are x in a linear regression
+Examples are an instance of data, x
+labeled examples include both feature and label
+unlabeled examples include feature but not label
+Models:
+    training/learning, takes examples to build relationships 
+between features and labels
+    inference means applying trained model to unlabeled examples
+Regression predicts continuous values "What is the value of a house in California?/What is the probability that a user will click on this ad?"
+classification predicts discrete values "Is a given email message spam or not spam?/Is this an image of a dog, a cat, or a hamster?"
+
+
+22222
+** Descending into ML
+y = wx + b
+y is the predicted label
+b is the bias
+w is the weight of feature 1
+x is a feature
+to infer substitute x with a value
+y = b + w1x1 + w2x2 + w3x3
+
+
+** Descending into ML: Training and Loss
+training a model means learning (determining) good values for all the weights and vias from labeled examples supervised learning means it has examples and then tries to minimize loss, empirical risk minimization
+loss is the penalty for a bad prediction, a nuber indicating for bad the model's prediction was on a single example
+perfection is 0 else greater
+training is to find a set of weights and biases that have low loss on average across all examples
+squared loss (aka l2 loss) is (observation - prediction(x)) ** 2
+Mean Squared Error (mse) is the average loss per example over an entire dataset
+1/n * while i < n: mse(x, y)
+x are features
+y is label
+
+
+33333
+** Reducing Loss
+convergence means iterating loss until it stops or becomes very slow
+
+
+** Reducing Loss: Gradient Descent
+convex problems have only one minimum (where slope is 0)
+gradient descent, pick a starting value for w (0 or random) gradient descent calculates the gradient of the loss curve at the starting point (curve or slope ie derivative) which tells you if you're hotter or colder
+gradient is a vector of partial derivatives with respect to the weights
+gradient is a vector so [direction, magnatude]
+the gradient points to the steepest increases in loss, the gradient descent algorithm takes a step in the negative gradient to reduce loss
+
+
+** Reducing Loss: Learning Rate
+learning rate (step size) is used to determine the next point
+hyperparameters are the values we tweak
+learning rate too small it will take a while
+learning rate too big it won't resolve (it'll bounce around the end)
+find goldilocks for optimum learning rate
+
+** Reducing Loss: Stochastic Gradient Descent
+batch is number of examples used to calculate gradient in a single iteration
+Stochastic gradient descent (SGD) makes this idea extreme, batch size of 1
+mini-batch stochastic gradient descent (mini-batch SDG) is between 10 and 1000 batches
+
+
+44444
+** TensorFlow
+sequence_of_integers = np.arange(5, 12)
+random_integers_between_50_and_100 = np.random.randint(low=50, high=101, size=(6)) # Note high is +1 over wanted range
+random_floats_between_0_and_1 = np.random.random([6]) # idk why square brackets
+random_floats_between_2_and_3 = random_floats_between_0_and_1 + 2.0 # broadcasting is the + 2.0, which adds 2.0 to each vector
+
+my_dataframe = pd.DataFrame(data=my_data, columns=my_column_names)
+my_dataframe["adjusted"] = my_dataframe["activity"] + 2
+print("Rows #0, #1, and #2:")
+print(my_dataframe.head(3), '\n')
+print("Row #2:")
+print(my_dataframe.iloc[[2]], '\n')
+print("Rows #1, #2, and #3:")
+print(my_dataframe[1:4], '\n')
+print("Column 'temperature':")
+print(my_dataframe['temperature'])
+
+
+55555
+** Generalization
+Generalization refers to your model's ability to adapt to new, previously unseen data, drawn from the same distribution as the one used to create the model
+
+** Peril of Overfitting
+an overfit model gets a low loss during training but does a poor job predicting data
+over complicated
+objective is between fitting our data and also fitting the data as simply as possible
+training set
+test set
+we draw examples independently and identically (i.i.d) at random from the distribution (ie. examples don't influence eachother--iid=randomness of variables)
+stationary distribution and same distribution
+
+
+666666
+** Training and Test Sets: Splitting Data
+training set is a subset to train a model
+test set is a subset to test the trained model
+split data say, 90:10 for train:test
+batch doesn't effect loss
+
+
+77777
+** Validation Set 
+using just test data could overfit
+validation data is used to train the training data (keep test data off on the side)
+final test on test data, looking for a match on validation data
+Tweak model, divide data into 3 sets: training, validation, test
+test is untouched, most tweaking done in validation set
+test is untouched because it would train the data rendering it useless
+
+
+** Validation Sets and Test Sets: Programming Exercise
+shuffled_train_df = train_df.reindex(np.random.permutation(train_df.index))
+
+
+88888
+** Representation: Feature Engineering
+feature engineering is transforming raw data into a feature vector
+raw data = { num_rooms: 6, num_bedrooms: 3 }
+feature vector = [6.0, 3.0]
+int to float is a trivial conversion
+catagorical features have a discrete (distinct) set of possible values, example 'Charleston Road', 'North Shoreline Boulevard'
+vocabulary possible values to integers, (OOV bucket:) map = Charleston Road to 0, North Shoreline Boulevard to 1
+	vocabulary with int poses problems with weight, for example 0 * 6 (0 is Charleston Road, 6 is weight)
+in mapping example some addresses are on the corner of a st and ave
+**(need to know more) one-hot encoding assigns the desired string to binary 1, others 0, multi-hot does two binary 1's as its values
+one-hot isn't feasable for millions of elements so we use sparse representation (stores a 1 in all words in a sentence, dog tail wag, every word in sentence is 1 rest in the df is 0)
+
+
+** Qualities of Good Features
+Good feature values should appear more than 5 times in a data set
+can't learn from indexes example, unique_house_id: 8SK982ZZ1242Z
+good naming conventions
+homebrew values example, house_age: 851472000
+noisy data example, user_age_years: 277
+!"magic" values example, good=quality_rating: 0.37, conversly bad=quality_rating: -1 ("magic")
+use quality_rating, is_quality_rating_define to mark magic values
+strong data that won't change ei. city names
+accounting for other indices: inferred_city_cluster: "219"
+
+
+** Cleaning Data
+scaling, reduce to bounds -1, +1; 0 to 1
+
+scaled_value = (value - mean) / stddev
+
+(mean = 100
+ standard deviation = 20
+ original value = 130)
+scaled_value = (130 - 100) / 20
+scaled_value = 1.5
+
+roomsPerPerson clipping (if max is 4.0 all values over 4 are grouped so expect a spike at the end 'removing outliers')
+you can log((totalRooms / population) + 1), don't know what this does or how it works
+binning for latitude, reduced to 11 booleans, most value is 1 rest are 0
+quantile binning, saem number of points 'points' in each bin
+
+scrubbing (omitted values, forgetful user; duplicate examples, server duplicate; bad labels, mislabeled a picture; bad feature vector, thermometer left out in sun)
+
+max and min, median and mean, standard deviation for visualizing data
