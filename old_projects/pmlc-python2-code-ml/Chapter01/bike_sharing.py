@@ -41,10 +41,13 @@ if __name__=='__main__':
     y_pred = rf_regressor.predict(X_test)
     mse = mean_squared_error(y_test, y_pred)
     evs = explained_variance_score(y_test, y_pred) 
-    print "\n#### Random Forest regressor performance ####"
-    print "Mean squared error =", round(mse, 2)
-    print "Explained variance score =", round(evs, 2)
+    print("\n#### Random Forest regressor performance ####")
+    print("Mean squared error =", round(mse, 2))
+    print("Explained variance score =", round(evs, 2))
 
     # Plot relative feature importances 
     plot_feature_importances(rf_regressor.feature_importances_, 'Random Forest regressor', feature_names)
+
+
+
 
