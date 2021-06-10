@@ -29,7 +29,7 @@ y = b + w1x1 + w2x2 + w3x3
 
 
 ** Descending into ML: Training and Loss
-training a model means learning (determining) good values for all the weights and vias from labeled examples supervised learning means it has examples and then tries to minimize loss, empirical risk minimization
+training a model means learning (determining) good values for all the weights and bias from labeled examples supervised learning means it has examples and then tries to minimize loss, empirical risk minimization
 loss is the penalty for a bad prediction, a nuber indicating for bad the model's prediction was on a single example
 perfection is 0 else greater
 training is to find a set of weights and biases that have low loss on average across all examples
@@ -137,14 +137,14 @@ one-hot isn't feasable for millions of elements so we use sparse representation 
 
 ** Qualities of Good Features
 Good feature values should appear more than 5 times in a data set
-can't learn from indexes example, unique_house_id: 8SK982ZZ1242Z
+can't learn from ids example, unique_house_id: 8SK982ZZ1242Z
 good naming conventions
 homebrew values example, house_age: 851472000
 noisy data example, user_age_years: 277
 !"magic" values example, good=quality_rating: 0.37, conversly bad=quality_rating: -1 ("magic")
 use quality_rating, is_quality_rating_define to mark magic values
 strong data that won't change ei. city names
-accounting for other indices: inferred_city_cluster: "219"
+accounting for other ids: inferred_city_cluster: "219"
 
 
 ** Cleaning Data
@@ -161,7 +161,7 @@ scaled_value = 1.5
 roomsPerPerson clipping (if max is 4.0 all values over 4 are grouped so expect a spike at the end 'removing outliers')
 you can log((totalRooms / population) + 1), don't know what this does or how it works
 binning for latitude, reduced to 11 booleans, most value is 1 rest are 0
-quantile binning, saem number of points 'points' in each bin
+quantile binning, same number of points 'points' in each bin
 
 scrubbing (omitted values, forgetful user; duplicate examples, server duplicate; bad labels, mislabeled a picture; bad feature vector, thermometer left out in sun)
 
