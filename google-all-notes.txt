@@ -213,7 +213,7 @@ creating a cross feature of these is
         20 < lat <= 30 AND 0 < lon <= 15
         20 < lat <= 30 AND 0 < lon <= 30
     ]
-example two features used usefully to ake predictions, dog behaviour (barking, snuggling, etc.) and time of day
+example two features used usefully to make predictions, dog behaviour (barking, snuggling, etc.) and time of day
 [behaviour type X time of day]
     5:00pm dog cries happily (owner home from work)
     3:00am sleeping
@@ -221,7 +221,7 @@ example two features used usefully to ake predictions, dog behaviour (barking, s
 
 1010101010
 ** Regularization for Simplicity
-generalize: not trudsting your examples too much
+generalize: not trusting your examples too much
 regularization is what we do to avoid overfitting
     1. stop early, stop before on convergint training data
         difficult to do on practice, but often used
@@ -267,8 +267,27 @@ making learning rate/lambda simultaneously have confounding effects
 with small noisy training sets overfitting is a real concern
 
 
+1111111111
+** Logistic Regression
+logistic regressions generates a probability, a value between 0 and 1
+if the model says 0.932--93.2% then that much will actually be spam (in the spam example)
 
+** Logistic Regression: Calculating a Probability
+sigmoid gives value between 0 and 1
+    there's asymptotes so it never hits 0 or 1, because of these we need regularization
+if we need non-linearities we can by cross product
+p(bar|night)
+startled = p(bark|night) * nights
+    = 0.05 * 365
+    = 18
+y' = sigmoid 1 / (1 + e**-z)
+z = log(y / 1 - y)
 
+** Logistic Regression: Loss and Regularization
+regularization is extremelt important in logistic regression modelling b/c without it the asymptotic nature of logreg would keep driving loss toward 0
+most logistic regression models use:
+    L2 regularization
+    early stopping, limiting number of steps/learning rate
 
 
 
