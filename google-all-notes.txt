@@ -260,7 +260,7 @@ if your lambda value is too high your model will be simple, but you run the risk
 too low and model will be more complex, overfitting
 lambda at 0 removes regularizartion
 lambda and learning rate have a close connection
-strong l2 drives feature weights to 0, lower learning rates (with early stopping) often produce often produce the name effect b/c the steps away from 0 aren't as large
+strong l2 drives feature weights to 0, lower learning rates (with early stopping) often produce often produce the same effect b/c the steps away from 0 aren't as large
 making learning rate/lambda simultaneously have confounding effects
 
 ** UI Exercise
@@ -276,7 +276,7 @@ if the model says 0.932--93.2% then that much will actually be spam (in the spam
 sigmoid gives value between 0 and 1
     there's asymptotes so it never hits 0 or 1, because of these we need regularization
 if we need non-linearities we can by cross product
-p(bar|night)
+p(bark|night)
 startled = p(bark|night) * nights
     = 0.05 * 365
     = 18
@@ -288,6 +288,118 @@ regularization is extremelt important in logistic regression modelling b/c witho
 most logistic regression models use:
     L2 regularization
     early stopping, limiting number of steps/learning rate
+
+
+1212121212
+** Classification
+logistic regression as a foundation for classification, by taking our probability outputs and applying a fixed threshold to them: example
+    if spam probability greater than 0.8, 0.8 is our classification threshold
+performance? accuracy, all-right / all-wrong
+    has some key flaws, breqas down with class imbalance
+    if our click-through rate is 1 in 10000, our accuracy is 99.999% which has no value
+
+True positives | False Positives
+--------------------------------
+False Negatives| True Negatives
+
+The little boy who cried wolf
+
+    True Positive: We correctly called the wolf! We saved the town
+    False Positive: We called the wolf falsely, everyone is mad
+    False Negative: There was a wolf, but we didn't spot it. it ate all our chickens
+    True Negatives: No wolf, no alarm. everone is fine
+
+precision (true positives)/(all positive predictions): how many times was the boy right?
+recall (true positives)/(all actual Positives): of all the wolves that attempted to get into the village, how many did we get?
+when given precision value, you must ask for recall before meaning
+if you raise the classification threshold of 1 and 0 precision will definitely increase
+ROC curve, Receiver Operating Characteristic s curve
+ROC Curve with 2 random values 1 positive and 1 negative
+    probability is equal to the number under the ROC curve
+prediction bias, average of predictions == average of observations
+    we would like prediction to be observed, if not we has it has some bias
+    bias of 0 shows avg pred == avg observation
+bias is easy to fool
+if bias isn't 0 then something is going on--can help determine debugging
+0 bias does not mean model is perfect
+
+** Thresholding
+model returns 0.9995 mail predicting spam
+another email msg w/ predition score of 0.0003, likely not spam
+what about email of score 0.6?
+in order to map a logistical regression value to binary you must define a classification threshold aka decision threshold
+A value above indicated spam, a value below not spam
+tempting to make 0.5 but thresholds are problem dependant
+tuning: making non-spam as spam is bad, but spam as non-spam isn't as bad
+
+** Classification: Accuracy
+accuracy = num-correct-pred/total-num-pred
+accuracy = (TP + TN)/(TP + TN + FP + FN) 
+    True Positive, True Negative, False Positive, False Negative
+class-imbalanced data set, wher there is significant disparity between the number of pos and neg labels
+if 91/100 correct there are still some problem in the wolf criers village
+
+** Classification: Precision and Recall
+precision = TP / TP + FP
+    1 / 1 + 1 = 0.5 (1 FP) 50% accuracy
+recall = TP / TP + FN
+    1 / 1 + 8 = 0.11 (8 FN) 11% are tumours
+
+improving precision reduces recall & vice-versa
+TN TN TN FN FN | FP TP TP FP
+-- -- -- -- -- | -- -- -- --
+               |
+classification threshold
+
+precision = TP / (TP + FP)
+recall = TP (TP + FN)
+
+moving the classification threshold will yeild diferent stats
+
+
+** Classification: ROC Curve and AUC
+ROC curve (receiver operating characteristics curve)
+    plots two parameters, TP and FP
+true positive rate (TPR) TPR = TP / (TP + FN) --recall
+false positive rate (FPR) FPR = FP / (FP + TN)
+
+AUC (Area under the ROC curve)
+AUC ranges from 0 to 1
+    AUC is scale-invariant, measures how pred are ranked
+    AUC sis classification-threshold-invariant, it measures the quality of the model's predictions irrespecrive of what classification threshold is chosen
+
+    scale invariance is not always desirable, sometime we need calibrated probablity, AUC won't tell us that
+    classification-threshold invariance is not always desireable, example: minimizing false positives (like in spam)
+
+** Classification: Prediction Bias
+prediction bias is a quanitity that measures how far those two averages are
+    pred-bias = avg-pred / avg-labels-in-set
+    wx + b
+causes of prediction bias:
+    incomplete feature set
+    noisy data set
+    buggy pipeline
+    biased training sample
+    overly strong regularization
+post-processing, adding a calibration layer
+    if your model has a +3% bias you could add a calibration layer to reduct pred bias
+    bad idea though:
+        fixing the sympton rather than the cause
+        more bittle must kept up to date
+a good model will usualy have 0 pred-bias, this doesn't mean your model is good
+
+logistic reg preducts between 0 and 1
+all label examples are either exatly 0 or 1
+you cannot accurately predict bias on onnly 1 example, need a "bucket" of examples
+must have enough examples
+can form buckets in 2 ways
+    linearly breaking up the target pred
+    forming quantiles
+why are there inaccuracys?
+    the training set doesn't adequately represent certain subsets of the data space
+    some subsets of the data are noisier than others
+    the model is overly regularized
+
 
 
 
