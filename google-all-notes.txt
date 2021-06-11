@@ -437,3 +437,15 @@ L1 may cause informative features to get a weight of exactly 0
 L1 will produce a smaller model
 
 
+1414141414
+** Neural Networks
+back propagation
+activation functions
+
+** Neural Net Spiral Solution
+regularization penalizes complex models and overfitting\feature engineering can help
+
+
+
+
+
