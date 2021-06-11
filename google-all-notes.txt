@@ -400,6 +400,40 @@ why are there inaccuracys?
     some subsets of the data are noisier than others
     the model is overly regularized
 
+** Binary Classification Exercise
+if one feature's range spans 500 to 100,000 and another feature spans 2 to 12, the model will be difficult/impossible to train, therefore you normalize features
 
+train_df_norm = (train_df - train_df.mean()) / train_df.std()
+same with test
+test_df_norm = (test_df - test_df.mean()) / test_df.std()
+
+
+1313131313
+** Regularization for Sparsity
+cross features, can be great but can cause some problems too
+    sparse features
+0 out weights, to reduce noise
+L0 regularization, penalize for having a weight that's not 0
+so we relax L0 to L1, penalizes the sum of the absolute value of the weights
+L2 regularization, tries to make the weight small but won't drive them all the way to 0
+
+** Regularization for Sparsity: L1 Regularization
+sparse vectors often contain many dimensions, creating a feature cross results in even more dimensions. many vectors is more RAM
+drop weights to 0 where possible
+0 weight remooves feature from model, 0's save ram
+    scanning for houses, don't scan ocean
+L1 penalizes weight**2
+L2 penalizes |weight|
+derivative of L2 is 2 * weight
+    you can think of the derivative of L2 as a force that removes x% of the weight every time
+derivative of L1 is k (a constant whose value is independent of weight)
+    you can think of the derivative of L1 as a force that subtracts some constant from the weight every time. Thanks to absolute values L1 has disconuity at 0, example: +0.1 to -0.2 L1 set the weight to 0
+
+NOTE L2 approaches limit of 0, L1 reaches 0
+
+
+** Understanding
+L1 may cause informative features to get a weight of exactly 0
+L1 will produce a smaller model
 
 
