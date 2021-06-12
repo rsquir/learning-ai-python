@@ -284,7 +284,7 @@ y' = sigmoid 1 / (1 + e**-z)
 z = log(y / 1 - y)
 
 ** Logistic Regression: Loss and Regularization
-regularization is extremelt important in logistic regression modelling b/c without it the asymptotic nature of logreg would keep driving loss toward 0
+regularization is extremely important in logistic regression modelling b/c without it the asymptotic nature of logreg would keep driving loss toward 0
 most logistic regression models use:
     L2 regularization
     early stopping, limiting number of steps/learning rate
@@ -295,7 +295,7 @@ most logistic regression models use:
 logistic regression as a foundation for classification, by taking our probability outputs and applying a fixed threshold to them: example
     if spam probability greater than 0.8, 0.8 is our classification threshold
 performance? accuracy, all-right / all-wrong
-    has some key flaws, breqas down with class imbalance
+    has some key flaws, breaks down with class imbalance
     if our click-through rate is 1 in 10000, our accuracy is 99.999% which has no value
 
 True positives | False Positives
@@ -310,7 +310,7 @@ The little boy who cried wolf
     True Negatives: No wolf, no alarm. everone is fine
 
 precision (true positives)/(all positive predictions): how many times was the boy right?
-recall (true positives)/(all actual Positives): of all the wolves that attempted to get into the village, how many did we get?
+recall (true positives)/(all actual positives): of all the wolves that attempted to get into the village, how many did we get?
 when given precision value, you must ask for recall before meaning
 if you raise the classification threshold of 1 and 0 precision will definitely increase
 ROC curve, Receiver Operating Characteristic s curve
@@ -366,7 +366,7 @@ false positive rate (FPR) FPR = FP / (FP + TN)
 AUC (Area under the ROC curve)
 AUC ranges from 0 to 1
     AUC is scale-invariant, measures how pred are ranked
-    AUC sis classification-threshold-invariant, it measures the quality of the model's predictions irrespecrive of what classification threshold is chosen
+    AUC is classification-threshold-invariant, it measures the quality of the model's predictions irrespecrive of what classification threshold is chosen
 
     scale invariance is not always desirable, sometime we need calibrated probablity, AUC won't tell us that
     classification-threshold invariance is not always desireable, example: minimizing false positives (like in spam)
@@ -444,6 +444,102 @@ activation functions
 
 ** Neural Net Spiral Solution
 regularization penalizes complex models and overfitting\feature engineering can help
+
+
+1414141414
+** Training Neural Networks
+Don't need to know back propogation
+back prop relies on gradients, things need to be derivatives
+gradients can vanish if networks get too deep, so if signal to noise ratios get bad down the model learning can become slow
+limit depth of model to the minimum effective depth if you can
+gradients can explode; if learning rates are too high we can get crazy instabilities. try lowering learning rate
+ReLu's can die -- keep lower learning rates
+normalization useful
+useful trick for nn's a regularizarion called dropout
+    drop out a random x, and then another random x
+
+** Training Neural Networks: Best Practices
+failure cases of back propogation
+    vanishing gradients
+        lower levels (closer to input) can become very small
+        when gradient approaches 0 for lower layers they train slow
+        relu helps prevent this
+    exploding gradients
+        low layers have many large items, gradients get too large to converge
+        batch normalization and lower learning rate help stop this
+    dead relu units
+        sum for relu falls below 0, relu can get stuck
+        lower learning rate
+Dropout regularization
+    "dropping out" unit for a single gradient step, the more you drop the stronger the regularizartion
+        0.0 = no dropout reg
+        1.0 = drop out everything
+        values between 0.0 and 1.0 are more useful
+
+
+1515151515
+** Multi-Class Neural Networks
+multi-class classification (dog is beagle, basset hound, or blood hound)
+softmax: probability of a class where probabilities add up to 1.0: dog 0.9, cat 0.08, horse 0.02
+    candidate sampling, where we train output nodes for the class is belongs to and then take a sample of the negative classes and update a sample of the output nodes
+of it's broader its a 1 vs. all classification strategy
+
+** Multi-Class Neural Networks: One vs. All
+one vs all, way to leverage binary classification. N solutions, N seperate binary classifiers.
+    example, pic of a dog, five different recognizers may be trained, 4 neg ex of dog, 1 pos example is a dog
+    inefficient as the number of classifiers increase
+
+** Multi-Class Neural Networks: Softmax
+recall log reg is 0-1.0, log reg output of 0.8 is 80%, therefore 20% false
+softmax extends this idea to multi-class
+    0.001 apple
+    0.04 bear
+    0.008 candy
+same number of nodes as output layer
+full softmax, every possible class
+candidate sampling, probability for all positive labels and only 1 random negative sample. interested in determining whether image is beagle or bloodhound, don't provide examples for every non-doggy sample
+softmax assumes each example is a member of exactly 1 class,
+1 member of multiple classes?
+    may not use softmax
+    must rely on multiple log reg
+
+
+1616161616
+** Embeddings
+embedding is a relatively low-dimenasional space which you can translate high-dimensional vectors. These make ml easier to do on large inputs such as sparse vectors representing words. captures semantics of the input by placing semantically similar inputs close together in the embedding space. an embedding can be learned and reused across models
+
+** Embeddings: Motivation From Collaborative Filtering
+collaborative filtering is the task of making predictions about the interests of a user based on many other users' interest
+to solve this we use embedding
+one-dimensional arrangement, just a line vs
+two-dimensional arrangement which is clusters
+embedding space (2d vector, n vector)
+latent dimension, feature for the dimension (axis)
+
+** Embeddings: Categorical Input Data
+categorical data refers to features that represent 1 or more discrete items from a finite set of choices
+catagorical data is most effeciently represented via sparse tensors, tensors with very few non-zero elements
+recommending movies:
+    assign an ID to each movie
+    [1, 3, 999999] (preprocessing)
+representations used to sparse vectors are given to give depth to data
+id 1247 is a one-hot encoding
+also there are vectors wil 500,000 nodes w/ non-0 value
+Size of network, M wods, N nodes, MxN weights to train
+a large number of weights causes futher problems:
+    amount of data, more weights, more data to train effectively
+    amount of computation, the more weights, the more computation required to train and use model. easy to exceed hardware
+id's aren't catagorical, they have no commonality. solution: embeddings, they translate large sparse vectors into a lower-dimensional space that preserves semantic relationships
+
+** Embeddings: Translating to a Lower-Dimensional Space
+an embedding is a matric which each column is the vector that corresponds to an item in your vocabulary. to get the dense vector for a single vocab item you retrieve the column corresponding to that item
+representing multiple vocab? retrieve embedding for all items and add them together
+1 x N sparse representation, S and N x M embedding table E, the matrix multiplication S x E gives you the 1 x M dense vector. How do you get E though?
+
+** Embeddings: Obtaining Embeddings
+Word2vec "you shall now a word by the company it keeps"
+embedding as part of the tasks nn, could take longer then using training for embedding
+
 
 
 
