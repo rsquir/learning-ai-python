@@ -31,8 +31,8 @@ for i in range(500):
 	target = point[3]
 	cost = np.square(pred - target)
 
-	dcost_pred = sigmoid_p(q)
-	dpred_dz = 2 * (pred - target)
+	dcost_pred = 2 * (pred - target)
+	dpred_dz =  sigmoid_p(q)
 
 	dz_dw1 = point[0]
 	dz_dw2 = point[1]
