@@ -36,7 +36,7 @@ data = [[0, 0, 0],	# remove this array
 		[0, 1, 0],
 		[1, 0, 0],
 		[1, 1, 1]]
-test = [0, 0] 		#answer is 0
+test = [1, 1] 		#answer is 0
 
 w1 = np.random.randn()
 w2 = np.random.randn()

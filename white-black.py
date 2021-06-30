@@ -1,12 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-train_data = [[255, 255, 255, 0],  # 1 = white, 2 = black
-			  [0, 0, 0, 1],
-			  [192, 200, 180, 0],
-			  [60, 70, 65, 1]]
-#test_data = [0, 0, 0]
-test_data = [255, 255, 255]
+#interlaced my scaling into the array's
+train_data = [[255/255, 255/255, 255/255, 0],  # 1 = white, 2 = black
+			  [0/255, 0/255, 0/255, 1],
+			  [192/255, 200/255, 180/255, 0],
+			  [60/255, 70/255, 65/255, 1]]
+test_data = [0/255, 0/255, 0/255] # returns 1
+#test_data = [255/255, 255/255, 255/255] # returns 0
 
 w1 = np.random.randn()
 w2 = np.random.randn()
@@ -21,7 +22,7 @@ def sigmoid(x):
 def sigmoid_p(x):
 	return sigmoid(x) * (1-sigmoid(x))
 
-for i in range(500):
+for i in range(1000):
 	random_idx = np.random.randint(len(train_data))
 	point = train_data[random_idx]
 
